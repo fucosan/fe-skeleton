@@ -5,9 +5,10 @@ import reactRefresh from 'eslint-plugin-react-refresh';
 import tseslint from 'typescript-eslint';
 import react from 'eslint-plugin-react';
 import query from '@tanstack/eslint-plugin-query';
+import reactCompiler from 'eslint-plugin-react-compiler';
 
 export default tseslint.config(
-  { ignores: ['dist', 'public'] },
+  { ignores: ['dist', 'public', '.storybook'] },
   {
     extends: [
       js.configs.recommended,
@@ -28,6 +29,7 @@ export default tseslint.config(
       'react-refresh': reactRefresh,
       'react': react, // Add this line to include the react plugin
       '@tanstack/query': query,
+      'react-compiler': reactCompiler
     },
     rules: {
       ...reactHooks.configs.recommended.rules,
@@ -38,6 +40,7 @@ export default tseslint.config(
       ...react.configs.recommended.rules,
       ...react.configs['jsx-runtime'].rules,
       // "semi": ["error", "always"],
+      'react-compiler/react-compiler': 'error',
     },
     settings: {
       react: {

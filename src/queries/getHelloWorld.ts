@@ -1,18 +1,15 @@
 import { keepPreviousData, queryOptions } from "@tanstack/react-query";
+import { getQueryString } from "@/lib/utils";
 
 const apiURL = import.meta.env.VITE_API_URL;
 
-interface GetHelloWorldParams {
-  name: string;
-}
-
-export const getHelloWorld = (params: GetHelloWorldParams) =>
+export const getHelloWorld = <T extends Record<string, string>>(params: T) =>
   queryOptions({
-    queryKey: ['hello-world', params.name],
+    queryKey: ['hello-world', params],
     queryFn: async ({ signal }) => {
-      const queryString = new URLSearchParams(params as any).toString();
+      const queryString = getQueryString<T>(params);
       const response = await fetch(
-        apiURL + '/hello-world' + (queryString ? '?' + queryString : ''),
+        apiURL + '/hello-world' + queryString,
         {
           signal,
         }

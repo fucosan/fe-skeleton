@@ -1,20 +1,21 @@
 import { useQuery } from '@tanstack/react-query';
 import { createFileRoute, Link } from '@tanstack/react-router'
+import { fallback, zodValidator } from '@tanstack/zod-adapter'
 import { useState } from 'react';
 import { z } from 'zod';
 import { getHelloWorld } from '@/queries/getHelloWorld'
 
-const nameSchema = z.string().max(10);
+const nameSchema = z.string().max(10).optional();
 
 const helloWorldSearchSchema = z.object({
-  name: nameSchema.catch(''),
+  name: fallback(nameSchema, '')
 });
 
-type helloWorldSearch = z.infer<typeof helloWorldSearchSchema>;
+type HelloWorldSearch = z.infer<typeof helloWorldSearchSchema>;
 
 export const Route = createFileRoute('/')({
   component: RouteComponent,
-  validateSearch: helloWorldSearchSchema
+  validateSearch: zodValidator(helloWorldSearchSchema)
 });
 
 function RouteComponent() {
@@ -22,19 +23,16 @@ function RouteComponent() {
   const [stateName, setStateName] = useState(name);
   const [error, setError] = useState('');
 
-  const { data, isLoading, isFetching } = useQuery(getHelloWorld({ name }))
+  const { data, isLoading, isFetching } = useQuery(getHelloWorld<HelloWorldSearch>({ name }))
   const loading = isFetching || isLoading;
 
   const onNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setStateName(e.target.value);
-
     const validateResult = nameSchema.safeParse(e.target.value);
-    if (validateResult.success) {
-    } else {
+    if (!validateResult.success) {
       setError(validateResult.error.errors[0].message);
     }
   };
-
 
   return (
     <div className='flex flex-col'>

@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { fn } from '@storybook/test';
-import { Button, buttonVariants } from './button';
+import { Button } from './button';
+import { buttonVariants } from './constants';
 import { type VariantProps } from "class-variance-authority"
 
 type ButtonVariants = VariantProps<typeof buttonVariants>
