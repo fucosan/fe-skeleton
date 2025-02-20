@@ -1,4 +1,4 @@
-import { PackageIcon } from "@/assets/icons";
+import { LogoutIcon } from "@/assets/icons";
 import { Link } from "@tanstack/react-router";
 
 export function Logout() {
@@ -8,7 +8,7 @@ export function Logout() {
         to="."
         className="flex items-center gap-[8px]"
       >
-        <PackageIcon width={22} height={22} /> Logout
+        <LogoutIcon /> Logout
       </Link>
     </div>
   );
