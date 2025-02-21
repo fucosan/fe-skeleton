@@ -14,3 +14,5 @@ export { default as EyeIcon } from './eye';
 export { default as GmailErrorIcon } from './gmail-error';
 export { default as SearchIcon } from './search';
 export { default as MoveTopRightIcon } from './move-top-right';
+export { default as FilterAltIcon } from './filter-alt';
+export { default as ChevronIcon } from './chevron';

@@ -13,7 +13,7 @@ const helloWorldSearchSchema = z.object({
 
 type HelloWorldSearch = z.infer<typeof helloWorldSearchSchema>;
 
-export const Route = createFileRoute('/')({
+export const Route = createFileRoute('/_authenticated/')({
   component: RouteComponent,
   validateSearch: zodValidator(helloWorldSearchSchema)
 });

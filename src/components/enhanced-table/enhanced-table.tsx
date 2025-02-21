@@ -37,7 +37,7 @@ export const EnhancedTable = <T extends object>({
 
   return (
     <div className='flex flex-col gap-[22px]'>
-      <ScrollArea className='w-[1074px]'>
+      <ScrollArea className='w-[1074px] rounded-lg'>
         <Table>
           <TableHeader>
             {table.getHeaderGroups().map(headerGroup => (
@@ -48,7 +48,7 @@ export const EnhancedTable = <T extends object>({
                     className={cn(
                       'text-nowrap',
                       header.column.columnDef.meta?.pinned
-                      && 'bg-primary sticky right-0 z-50'
+                      && 'rounded-tr-lg bg-primary sticky right-0 z-50'
                     )}
                   >
                     {header.isPlaceholder

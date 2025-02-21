@@ -11,21 +11,33 @@
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
+import { Route as AuthenticatedImport } from './routes/_authenticated'
 import { Route as AuthImport } from './routes/_auth'
-import { Route as IndexImport } from './routes/index'
 import { Route as AboutIndexImport } from './routes/about/index'
-import { Route as AuthSignInImport } from './routes/_auth.sign-in'
+import { Route as AuthenticatedIndexImport } from './routes/_authenticated.index'
+import { Route as AuthSignInImport } from './routes/_auth/sign-in'
+import { Route as AuthenticatedStoreManagementIndexImport } from './routes/_authenticated/store-management/index'
+import { Route as AuthenticatedSettingIndexImport } from './routes/_authenticated/setting/index'
+import { Route as AuthenticatedReferencePurchaseProductIndexImport } from './routes/_authenticated/reference-purchase-product/index'
+import { Route as AuthenticatedOnSitePurchaseIndexImport } from './routes/_authenticated/on-site-purchase/index'
+import { Route as AuthenticatedNewsManagementIndexImport } from './routes/_authenticated/news-management/index'
+import { Route as AuthenticatedMembersIndexImport } from './routes/_authenticated/members/index'
+import { Route as AuthenticatedInStorePurchaseIndexImport } from './routes/_authenticated/in-store-purchase/index'
+import { Route as AuthenticatedHomeDeliveryPurchaseIndexImport } from './routes/_authenticated/home-delivery-purchase/index'
+import { Route as AuthenticatedCouponManagementIndexImport } from './routes/_authenticated/coupon-management/index'
+import { Route as AuthenticatedBrandManagementIndexImport } from './routes/_authenticated/brand-management/index'
+import { Route as AuthenticatedBackorderManagementIndexImport } from './routes/_authenticated/backorder-management/index'
+import { Route as AuthenticatedAdministratorsIndexImport } from './routes/_authenticated/administrators/index'
 
 // Create/Update Routes
 
-const AuthRoute = AuthImport.update({
-  id: '/_auth',
+const AuthenticatedRoute = AuthenticatedImport.update({
+  id: '/_authenticated',
   getParentRoute: () => rootRoute,
 } as any)
 
-const IndexRoute = IndexImport.update({
-  id: '/',
-  path: '/',
+const AuthRoute = AuthImport.update({
+  id: '/_auth',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -35,28 +47,116 @@ const AboutIndexRoute = AboutIndexImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
+const AuthenticatedIndexRoute = AuthenticatedIndexImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AuthenticatedRoute,
+} as any)
+
 const AuthSignInRoute = AuthSignInImport.update({
   id: '/sign-in',
   path: '/sign-in',
   getParentRoute: () => AuthRoute,
 } as any)
 
+const AuthenticatedStoreManagementIndexRoute =
+  AuthenticatedStoreManagementIndexImport.update({
+    id: '/store-management/',
+    path: '/store-management/',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+
+const AuthenticatedSettingIndexRoute = AuthenticatedSettingIndexImport.update({
+  id: '/setting/',
+  path: '/setting/',
+  getParentRoute: () => AuthenticatedRoute,
+} as any)
+
+const AuthenticatedReferencePurchaseProductIndexRoute =
+  AuthenticatedReferencePurchaseProductIndexImport.update({
+    id: '/reference-purchase-product/',
+    path: '/reference-purchase-product/',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+
+const AuthenticatedOnSitePurchaseIndexRoute =
+  AuthenticatedOnSitePurchaseIndexImport.update({
+    id: '/on-site-purchase/',
+    path: '/on-site-purchase/',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+
+const AuthenticatedNewsManagementIndexRoute =
+  AuthenticatedNewsManagementIndexImport.update({
+    id: '/news-management/',
+    path: '/news-management/',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+
+const AuthenticatedMembersIndexRoute = AuthenticatedMembersIndexImport.update({
+  id: '/members/',
+  path: '/members/',
+  getParentRoute: () => AuthenticatedRoute,
+} as any)
+
+const AuthenticatedInStorePurchaseIndexRoute =
+  AuthenticatedInStorePurchaseIndexImport.update({
+    id: '/in-store-purchase/',
+    path: '/in-store-purchase/',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+
+const AuthenticatedHomeDeliveryPurchaseIndexRoute =
+  AuthenticatedHomeDeliveryPurchaseIndexImport.update({
+    id: '/home-delivery-purchase/',
+    path: '/home-delivery-purchase/',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+
+const AuthenticatedCouponManagementIndexRoute =
+  AuthenticatedCouponManagementIndexImport.update({
+    id: '/coupon-management/',
+    path: '/coupon-management/',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+
+const AuthenticatedBrandManagementIndexRoute =
+  AuthenticatedBrandManagementIndexImport.update({
+    id: '/brand-management/',
+    path: '/brand-management/',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+
+const AuthenticatedBackorderManagementIndexRoute =
+  AuthenticatedBackorderManagementIndexImport.update({
+    id: '/backorder-management/',
+    path: '/backorder-management/',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+
+const AuthenticatedAdministratorsIndexRoute =
+  AuthenticatedAdministratorsIndexImport.update({
+    id: '/administrators/',
+    path: '/administrators/',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+
 // Populate the FileRoutesByPath interface
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexImport
-      parentRoute: typeof rootRoute
-    }
     '/_auth': {
       id: '/_auth'
       path: ''
       fullPath: ''
       preLoaderRoute: typeof AuthImport
+      parentRoute: typeof rootRoute
+    }
+    '/_authenticated': {
+      id: '/_authenticated'
+      path: ''
+      fullPath: ''
+      preLoaderRoute: typeof AuthenticatedImport
       parentRoute: typeof rootRoute
     }
     '/_auth/sign-in': {
@@ -66,12 +166,103 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthSignInImport
       parentRoute: typeof AuthImport
     }
+    '/_authenticated/': {
+      id: '/_authenticated/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof AuthenticatedIndexImport
+      parentRoute: typeof AuthenticatedImport
+    }
     '/about/': {
       id: '/about/'
       path: '/about'
       fullPath: '/about'
       preLoaderRoute: typeof AboutIndexImport
       parentRoute: typeof rootRoute
+    }
+    '/_authenticated/administrators/': {
+      id: '/_authenticated/administrators/'
+      path: '/administrators'
+      fullPath: '/administrators'
+      preLoaderRoute: typeof AuthenticatedAdministratorsIndexImport
+      parentRoute: typeof AuthenticatedImport
+    }
+    '/_authenticated/backorder-management/': {
+      id: '/_authenticated/backorder-management/'
+      path: '/backorder-management'
+      fullPath: '/backorder-management'
+      preLoaderRoute: typeof AuthenticatedBackorderManagementIndexImport
+      parentRoute: typeof AuthenticatedImport
+    }
+    '/_authenticated/brand-management/': {
+      id: '/_authenticated/brand-management/'
+      path: '/brand-management'
+      fullPath: '/brand-management'
+      preLoaderRoute: typeof AuthenticatedBrandManagementIndexImport
+      parentRoute: typeof AuthenticatedImport
+    }
+    '/_authenticated/coupon-management/': {
+      id: '/_authenticated/coupon-management/'
+      path: '/coupon-management'
+      fullPath: '/coupon-management'
+      preLoaderRoute: typeof AuthenticatedCouponManagementIndexImport
+      parentRoute: typeof AuthenticatedImport
+    }
+    '/_authenticated/home-delivery-purchase/': {
+      id: '/_authenticated/home-delivery-purchase/'
+      path: '/home-delivery-purchase'
+      fullPath: '/home-delivery-purchase'
+      preLoaderRoute: typeof AuthenticatedHomeDeliveryPurchaseIndexImport
+      parentRoute: typeof AuthenticatedImport
+    }
+    '/_authenticated/in-store-purchase/': {
+      id: '/_authenticated/in-store-purchase/'
+      path: '/in-store-purchase'
+      fullPath: '/in-store-purchase'
+      preLoaderRoute: typeof AuthenticatedInStorePurchaseIndexImport
+      parentRoute: typeof AuthenticatedImport
+    }
+    '/_authenticated/members/': {
+      id: '/_authenticated/members/'
+      path: '/members'
+      fullPath: '/members'
+      preLoaderRoute: typeof AuthenticatedMembersIndexImport
+      parentRoute: typeof AuthenticatedImport
+    }
+    '/_authenticated/news-management/': {
+      id: '/_authenticated/news-management/'
+      path: '/news-management'
+      fullPath: '/news-management'
+      preLoaderRoute: typeof AuthenticatedNewsManagementIndexImport
+      parentRoute: typeof AuthenticatedImport
+    }
+    '/_authenticated/on-site-purchase/': {
+      id: '/_authenticated/on-site-purchase/'
+      path: '/on-site-purchase'
+      fullPath: '/on-site-purchase'
+      preLoaderRoute: typeof AuthenticatedOnSitePurchaseIndexImport
+      parentRoute: typeof AuthenticatedImport
+    }
+    '/_authenticated/reference-purchase-product/': {
+      id: '/_authenticated/reference-purchase-product/'
+      path: '/reference-purchase-product'
+      fullPath: '/reference-purchase-product'
+      preLoaderRoute: typeof AuthenticatedReferencePurchaseProductIndexImport
+      parentRoute: typeof AuthenticatedImport
+    }
+    '/_authenticated/setting/': {
+      id: '/_authenticated/setting/'
+      path: '/setting'
+      fullPath: '/setting'
+      preLoaderRoute: typeof AuthenticatedSettingIndexImport
+      parentRoute: typeof AuthenticatedImport
+    }
+    '/_authenticated/store-management/': {
+      id: '/_authenticated/store-management/'
+      path: '/store-management'
+      fullPath: '/store-management'
+      preLoaderRoute: typeof AuthenticatedStoreManagementIndexImport
+      parentRoute: typeof AuthenticatedImport
     }
   }
 }
@@ -88,46 +279,176 @@ const AuthRouteChildren: AuthRouteChildren = {
 
 const AuthRouteWithChildren = AuthRoute._addFileChildren(AuthRouteChildren)
 
+interface AuthenticatedRouteChildren {
+  AuthenticatedIndexRoute: typeof AuthenticatedIndexRoute
+  AuthenticatedAdministratorsIndexRoute: typeof AuthenticatedAdministratorsIndexRoute
+  AuthenticatedBackorderManagementIndexRoute: typeof AuthenticatedBackorderManagementIndexRoute
+  AuthenticatedBrandManagementIndexRoute: typeof AuthenticatedBrandManagementIndexRoute
+  AuthenticatedCouponManagementIndexRoute: typeof AuthenticatedCouponManagementIndexRoute
+  AuthenticatedHomeDeliveryPurchaseIndexRoute: typeof AuthenticatedHomeDeliveryPurchaseIndexRoute
+  AuthenticatedInStorePurchaseIndexRoute: typeof AuthenticatedInStorePurchaseIndexRoute
+  AuthenticatedMembersIndexRoute: typeof AuthenticatedMembersIndexRoute
+  AuthenticatedNewsManagementIndexRoute: typeof AuthenticatedNewsManagementIndexRoute
+  AuthenticatedOnSitePurchaseIndexRoute: typeof AuthenticatedOnSitePurchaseIndexRoute
+  AuthenticatedReferencePurchaseProductIndexRoute: typeof AuthenticatedReferencePurchaseProductIndexRoute
+  AuthenticatedSettingIndexRoute: typeof AuthenticatedSettingIndexRoute
+  AuthenticatedStoreManagementIndexRoute: typeof AuthenticatedStoreManagementIndexRoute
+}
+
+const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
+  AuthenticatedIndexRoute: AuthenticatedIndexRoute,
+  AuthenticatedAdministratorsIndexRoute: AuthenticatedAdministratorsIndexRoute,
+  AuthenticatedBackorderManagementIndexRoute:
+    AuthenticatedBackorderManagementIndexRoute,
+  AuthenticatedBrandManagementIndexRoute:
+    AuthenticatedBrandManagementIndexRoute,
+  AuthenticatedCouponManagementIndexRoute:
+    AuthenticatedCouponManagementIndexRoute,
+  AuthenticatedHomeDeliveryPurchaseIndexRoute:
+    AuthenticatedHomeDeliveryPurchaseIndexRoute,
+  AuthenticatedInStorePurchaseIndexRoute:
+    AuthenticatedInStorePurchaseIndexRoute,
+  AuthenticatedMembersIndexRoute: AuthenticatedMembersIndexRoute,
+  AuthenticatedNewsManagementIndexRoute: AuthenticatedNewsManagementIndexRoute,
+  AuthenticatedOnSitePurchaseIndexRoute: AuthenticatedOnSitePurchaseIndexRoute,
+  AuthenticatedReferencePurchaseProductIndexRoute:
+    AuthenticatedReferencePurchaseProductIndexRoute,
+  AuthenticatedSettingIndexRoute: AuthenticatedSettingIndexRoute,
+  AuthenticatedStoreManagementIndexRoute:
+    AuthenticatedStoreManagementIndexRoute,
+}
+
+const AuthenticatedRouteWithChildren = AuthenticatedRoute._addFileChildren(
+  AuthenticatedRouteChildren,
+)
+
 export interface FileRoutesByFullPath {
-  '/': typeof IndexRoute
-  '': typeof AuthRouteWithChildren
+  '': typeof AuthenticatedRouteWithChildren
   '/sign-in': typeof AuthSignInRoute
+  '/': typeof AuthenticatedIndexRoute
   '/about': typeof AboutIndexRoute
+  '/administrators': typeof AuthenticatedAdministratorsIndexRoute
+  '/backorder-management': typeof AuthenticatedBackorderManagementIndexRoute
+  '/brand-management': typeof AuthenticatedBrandManagementIndexRoute
+  '/coupon-management': typeof AuthenticatedCouponManagementIndexRoute
+  '/home-delivery-purchase': typeof AuthenticatedHomeDeliveryPurchaseIndexRoute
+  '/in-store-purchase': typeof AuthenticatedInStorePurchaseIndexRoute
+  '/members': typeof AuthenticatedMembersIndexRoute
+  '/news-management': typeof AuthenticatedNewsManagementIndexRoute
+  '/on-site-purchase': typeof AuthenticatedOnSitePurchaseIndexRoute
+  '/reference-purchase-product': typeof AuthenticatedReferencePurchaseProductIndexRoute
+  '/setting': typeof AuthenticatedSettingIndexRoute
+  '/store-management': typeof AuthenticatedStoreManagementIndexRoute
 }
 
 export interface FileRoutesByTo {
-  '/': typeof IndexRoute
   '': typeof AuthRouteWithChildren
   '/sign-in': typeof AuthSignInRoute
+  '/': typeof AuthenticatedIndexRoute
   '/about': typeof AboutIndexRoute
+  '/administrators': typeof AuthenticatedAdministratorsIndexRoute
+  '/backorder-management': typeof AuthenticatedBackorderManagementIndexRoute
+  '/brand-management': typeof AuthenticatedBrandManagementIndexRoute
+  '/coupon-management': typeof AuthenticatedCouponManagementIndexRoute
+  '/home-delivery-purchase': typeof AuthenticatedHomeDeliveryPurchaseIndexRoute
+  '/in-store-purchase': typeof AuthenticatedInStorePurchaseIndexRoute
+  '/members': typeof AuthenticatedMembersIndexRoute
+  '/news-management': typeof AuthenticatedNewsManagementIndexRoute
+  '/on-site-purchase': typeof AuthenticatedOnSitePurchaseIndexRoute
+  '/reference-purchase-product': typeof AuthenticatedReferencePurchaseProductIndexRoute
+  '/setting': typeof AuthenticatedSettingIndexRoute
+  '/store-management': typeof AuthenticatedStoreManagementIndexRoute
 }
 
 export interface FileRoutesById {
   __root__: typeof rootRoute
-  '/': typeof IndexRoute
   '/_auth': typeof AuthRouteWithChildren
+  '/_authenticated': typeof AuthenticatedRouteWithChildren
   '/_auth/sign-in': typeof AuthSignInRoute
+  '/_authenticated/': typeof AuthenticatedIndexRoute
   '/about/': typeof AboutIndexRoute
+  '/_authenticated/administrators/': typeof AuthenticatedAdministratorsIndexRoute
+  '/_authenticated/backorder-management/': typeof AuthenticatedBackorderManagementIndexRoute
+  '/_authenticated/brand-management/': typeof AuthenticatedBrandManagementIndexRoute
+  '/_authenticated/coupon-management/': typeof AuthenticatedCouponManagementIndexRoute
+  '/_authenticated/home-delivery-purchase/': typeof AuthenticatedHomeDeliveryPurchaseIndexRoute
+  '/_authenticated/in-store-purchase/': typeof AuthenticatedInStorePurchaseIndexRoute
+  '/_authenticated/members/': typeof AuthenticatedMembersIndexRoute
+  '/_authenticated/news-management/': typeof AuthenticatedNewsManagementIndexRoute
+  '/_authenticated/on-site-purchase/': typeof AuthenticatedOnSitePurchaseIndexRoute
+  '/_authenticated/reference-purchase-product/': typeof AuthenticatedReferencePurchaseProductIndexRoute
+  '/_authenticated/setting/': typeof AuthenticatedSettingIndexRoute
+  '/_authenticated/store-management/': typeof AuthenticatedStoreManagementIndexRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '' | '/sign-in' | '/about'
+  fullPaths:
+    | ''
+    | '/sign-in'
+    | '/'
+    | '/about'
+    | '/administrators'
+    | '/backorder-management'
+    | '/brand-management'
+    | '/coupon-management'
+    | '/home-delivery-purchase'
+    | '/in-store-purchase'
+    | '/members'
+    | '/news-management'
+    | '/on-site-purchase'
+    | '/reference-purchase-product'
+    | '/setting'
+    | '/store-management'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '' | '/sign-in' | '/about'
-  id: '__root__' | '/' | '/_auth' | '/_auth/sign-in' | '/about/'
+  to:
+    | ''
+    | '/sign-in'
+    | '/'
+    | '/about'
+    | '/administrators'
+    | '/backorder-management'
+    | '/brand-management'
+    | '/coupon-management'
+    | '/home-delivery-purchase'
+    | '/in-store-purchase'
+    | '/members'
+    | '/news-management'
+    | '/on-site-purchase'
+    | '/reference-purchase-product'
+    | '/setting'
+    | '/store-management'
+  id:
+    | '__root__'
+    | '/_auth'
+    | '/_authenticated'
+    | '/_auth/sign-in'
+    | '/_authenticated/'
+    | '/about/'
+    | '/_authenticated/administrators/'
+    | '/_authenticated/backorder-management/'
+    | '/_authenticated/brand-management/'
+    | '/_authenticated/coupon-management/'
+    | '/_authenticated/home-delivery-purchase/'
+    | '/_authenticated/in-store-purchase/'
+    | '/_authenticated/members/'
+    | '/_authenticated/news-management/'
+    | '/_authenticated/on-site-purchase/'
+    | '/_authenticated/reference-purchase-product/'
+    | '/_authenticated/setting/'
+    | '/_authenticated/store-management/'
   fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute
   AuthRoute: typeof AuthRouteWithChildren
+  AuthenticatedRoute: typeof AuthenticatedRouteWithChildren
   AboutIndexRoute: typeof AboutIndexRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
-  IndexRoute: IndexRoute,
   AuthRoute: AuthRouteWithChildren,
+  AuthenticatedRoute: AuthenticatedRouteWithChildren,
   AboutIndexRoute: AboutIndexRoute,
 }
 
@@ -141,13 +462,10 @@ export const routeTree = rootRoute
     "__root__": {
       "filePath": "__root.tsx",
       "children": [
-        "/",
         "/_auth",
+        "/_authenticated",
         "/about/"
       ]
-    },
-    "/": {
-      "filePath": "index.tsx"
     },
     "/_auth": {
       "filePath": "_auth.tsx",
@@ -155,12 +473,82 @@ export const routeTree = rootRoute
         "/_auth/sign-in"
       ]
     },
+    "/_authenticated": {
+      "filePath": "_authenticated.tsx",
+      "children": [
+        "/_authenticated/",
+        "/_authenticated/administrators/",
+        "/_authenticated/backorder-management/",
+        "/_authenticated/brand-management/",
+        "/_authenticated/coupon-management/",
+        "/_authenticated/home-delivery-purchase/",
+        "/_authenticated/in-store-purchase/",
+        "/_authenticated/members/",
+        "/_authenticated/news-management/",
+        "/_authenticated/on-site-purchase/",
+        "/_authenticated/reference-purchase-product/",
+        "/_authenticated/setting/",
+        "/_authenticated/store-management/"
+      ]
+    },
     "/_auth/sign-in": {
-      "filePath": "_auth.sign-in.tsx",
+      "filePath": "_auth/sign-in.tsx",
       "parent": "/_auth"
+    },
+    "/_authenticated/": {
+      "filePath": "_authenticated.index.tsx",
+      "parent": "/_authenticated"
     },
     "/about/": {
       "filePath": "about/index.tsx"
+    },
+    "/_authenticated/administrators/": {
+      "filePath": "_authenticated/administrators/index.tsx",
+      "parent": "/_authenticated"
+    },
+    "/_authenticated/backorder-management/": {
+      "filePath": "_authenticated/backorder-management/index.tsx",
+      "parent": "/_authenticated"
+    },
+    "/_authenticated/brand-management/": {
+      "filePath": "_authenticated/brand-management/index.tsx",
+      "parent": "/_authenticated"
+    },
+    "/_authenticated/coupon-management/": {
+      "filePath": "_authenticated/coupon-management/index.tsx",
+      "parent": "/_authenticated"
+    },
+    "/_authenticated/home-delivery-purchase/": {
+      "filePath": "_authenticated/home-delivery-purchase/index.tsx",
+      "parent": "/_authenticated"
+    },
+    "/_authenticated/in-store-purchase/": {
+      "filePath": "_authenticated/in-store-purchase/index.tsx",
+      "parent": "/_authenticated"
+    },
+    "/_authenticated/members/": {
+      "filePath": "_authenticated/members/index.tsx",
+      "parent": "/_authenticated"
+    },
+    "/_authenticated/news-management/": {
+      "filePath": "_authenticated/news-management/index.tsx",
+      "parent": "/_authenticated"
+    },
+    "/_authenticated/on-site-purchase/": {
+      "filePath": "_authenticated/on-site-purchase/index.tsx",
+      "parent": "/_authenticated"
+    },
+    "/_authenticated/reference-purchase-product/": {
+      "filePath": "_authenticated/reference-purchase-product/index.tsx",
+      "parent": "/_authenticated"
+    },
+    "/_authenticated/setting/": {
+      "filePath": "_authenticated/setting/index.tsx",
+      "parent": "/_authenticated"
+    },
+    "/_authenticated/store-management/": {
+      "filePath": "_authenticated/store-management/index.tsx",
+      "parent": "/_authenticated"
     }
   }
 }
