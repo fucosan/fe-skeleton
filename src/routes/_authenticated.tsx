@@ -11,14 +11,14 @@ export const Route = createFileRoute('/_authenticated')({
         await context.auth.ensureData()
       }
       catch {
-        // shouldRedirect = true
-        shouldRedirect = false
+        shouldRedirect = true
+        //shouldRedirect = false
       }
     }
 
     if (context.auth.status === 'UNAUTHENTICATED') {
-      // shouldRedirect = true
-      shouldRedirect = false
+      shouldRedirect = true
+      // shouldRedirect = false
     }
 
     if (shouldRedirect) {

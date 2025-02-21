@@ -4,7 +4,7 @@ import { ACCESS_TOKEN } from '@/lib/constants'
 import type { ResRefresh } from '@/types/response'
 
 const kyWithAuth = ky.create({
-  prefixUrl: import.meta.env.VITE_API_URL,
+  prefixUrl: import.meta.env.VITE_APP_API_URL,
   credentials: 'include',
   hooks: {
     beforeRequest: [

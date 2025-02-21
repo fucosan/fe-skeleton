@@ -10,7 +10,7 @@ const __dirname = dirname(__filename)
 
 export default defineConfig(({ mode }: ConfigEnv) => {
   const env = loadEnv(mode, process.cwd());
-  const port = env.VITE_PORT || '3000';
+  const port = env.VITE_APP_PORT || '3000';
 
   return {
     plugins: [

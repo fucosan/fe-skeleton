@@ -13,9 +13,9 @@ const LoginSchema = z.object({
   password: z.string().min(6, "Password must be at least 6 characters"),
 });
 
-export function LoginForm() {
+export function SignIn() {
   return (
-    <div className="bg-background flex flex-col w-[474px] h-[775px] p-[42px] flex flex-col gap-[36px]">
+    <div className="bg-background flex flex-col w-[474px] mih-h-[475px] p-[42px] flex flex-col gap-[36px]">
       <span className='text-[22px] font-bold'>Login</span>
       <hr />
       <Formik
@@ -63,7 +63,7 @@ export function LoginForm() {
 
             {/* Submit Button */}
             <Button type="submit" className="w-full">
-              Login
+              move on
             </Button>
           </Form>
         )}

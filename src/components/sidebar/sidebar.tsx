@@ -14,6 +14,7 @@ function Sidebar() {
           key={option.to + option.label}
           className="[&.active]:bg-primary [&.active]:text-white flex items-center text-wrap gap-[8px] px-[9px] py-[3px] text-sm font-normal h-[48px]"
           to={option.to}
+          preload={false}
         >
           {({ isActive }) => (
             <>

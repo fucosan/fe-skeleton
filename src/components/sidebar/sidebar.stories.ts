@@ -1,7 +1,8 @@
 import { Meta, StoryObj } from '@storybook/react';
 import { Sidebar } from './sidebar';
+import { links } from './constants';
 
-
+console.log(links.map(link => link.to));
 const meta = {
   title: 'Components/sidebar',
   component: Sidebar,
@@ -18,8 +19,8 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   parameters: {
     router: {
-      routes: ['/', '/about'],
-      initialEntries: ['/about']
+      routes: links.map(link => link.to),
+      initialEntries: ['/members']
     }
   },
   args: {},
