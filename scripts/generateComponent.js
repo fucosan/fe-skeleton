@@ -1,9 +1,5 @@
 import fs from 'fs';
-import { fileURLToPath } from 'url';
 import path from 'path';
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
 
 const componentName = process.argv[2];
 if (!componentName) {
@@ -17,8 +13,18 @@ if (!pathName) {
   process.exit(1);
 }
 
+// Convert kebab-case to PascalCase
+const toPascalCase = (str) => {
+  return str
+    .split('-')
+    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+    .join('');
+};
+
+const componentNamePascal = toPascalCase(componentName);
+
+// Ensure the correct path inside `src/components`
 const componentDir = path.join(process.cwd(), pathName, componentName);
-console.log(componentDir);
 const componentFile = path.join(componentDir, `${componentName}.tsx`);
 const storyFile = path.join(componentDir, `${componentName}.stories.tsx`);
 
@@ -29,26 +35,26 @@ if (!fs.existsSync(componentDir)) {
 const componentContent = `
 import React from 'react';
 
-type ${componentName}Props = {};
+type ${componentNamePascal}Props = {};
 
-export const ${componentName}: React.FC<${componentName}Props> = () => {
-  return <h1>${componentName}</h1>;
+export const ${componentNamePascal}: React.FC<${componentNamePascal}Props> = () => {
+  return <h1>${componentNamePascal}</h1>;
 };
 `;
 
 const storyContent = `
 import { Meta, StoryObj } from '@storybook/react';
-import { ${componentName} } from './${componentName}';
+import { ${componentNamePascal} } from './${componentName}';
 
 const meta = {
-  title: 'Components/${componentName}',
-  component: ${componentName},
+  title: 'Components/${componentNamePascal}',
+  component: ${componentNamePascal},
   parameters: {
     layout: 'centered',
   },
   tags: ['autodocs'],
   argTypes: {},
-} satisfies Meta<typeof ${componentName}>;
+} satisfies Meta<typeof ${componentNamePascal}>;
 
 export default meta;
 
@@ -61,4 +67,4 @@ export const Default: Story = {
 fs.writeFileSync(componentFile, componentContent.trim());
 fs.writeFileSync(storyFile, storyContent.trim());
 
-console.log(`Component ${componentName} created successfully.`);
+console.log(`Component ${componentNamePascal} created successfully at ${componentDir}`);

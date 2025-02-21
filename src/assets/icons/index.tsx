@@ -13,3 +13,4 @@ export { default as WorkspacePremiumIcon } from './workspace-premium';
 export { default as EyeIcon } from './eye';
 export { default as GmailErrorIcon } from './gmail-error';
 export { default as SearchIcon } from './search';
+export { default as MoveTopRightIcon } from './move-top-right';
