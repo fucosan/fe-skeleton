@@ -9,6 +9,7 @@ import type { ResAuth } from '@/types/response'
 type AuthState =
   | { user: null; status: 'PENDING' }
   | { user: null; status: 'UNAUTHENTICATED' }
+  | { user: null; status: 'OTP_REQUIRED' }
   | { user: ResAuth['user']; status: 'AUTHENTICATED' }
 
 type AuthUtils = {
@@ -27,7 +28,7 @@ function useAuth(): AuthData {
 
   useEffect(() => {
     router.invalidate()
-  }, [authQuery.data])
+  }, [authQuery.data?.user])
 
   useEffect(() => {
     if (authQuery.error === null) return
@@ -52,8 +53,11 @@ function useAuth(): AuthData {
     case authQuery.isPending:
       return { ...utils, user: null, status: 'PENDING' }
 
+    case authQuery.data?.status === 'OTP_REQUIRED':
+      return { ...utils, user: null, status: 'OTP_REQUIRED' }
+
     case !authQuery.data:
-      return { ...utils, user: null, status: 'UNAUTHENTICATED' }
+      return { ...utils, user: null, status: 'UNAUTHENTICATED', }
 
     default:
       return { ...utils, user: authQuery.data.user, status: 'AUTHENTICATED' }

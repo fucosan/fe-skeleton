@@ -16,6 +16,7 @@ import { Route as AuthImport } from './routes/_auth'
 import { Route as AboutIndexImport } from './routes/about/index'
 import { Route as AuthenticatedIndexImport } from './routes/_authenticated.index'
 import { Route as AuthSignInImport } from './routes/_auth/sign-in'
+import { Route as AuthOtpImport } from './routes/_auth/otp'
 import { Route as AuthenticatedStoreManagementIndexImport } from './routes/_authenticated/store-management/index'
 import { Route as AuthenticatedSettingIndexImport } from './routes/_authenticated/setting/index'
 import { Route as AuthenticatedReferencePurchaseProductIndexImport } from './routes/_authenticated/reference-purchase-product/index'
@@ -56,6 +57,12 @@ const AuthenticatedIndexRoute = AuthenticatedIndexImport.update({
 const AuthSignInRoute = AuthSignInImport.update({
   id: '/sign-in',
   path: '/sign-in',
+  getParentRoute: () => AuthRoute,
+} as any)
+
+const AuthOtpRoute = AuthOtpImport.update({
+  id: '/otp',
+  path: '/otp',
   getParentRoute: () => AuthRoute,
 } as any)
 
@@ -158,6 +165,13 @@ declare module '@tanstack/react-router' {
       fullPath: ''
       preLoaderRoute: typeof AuthenticatedImport
       parentRoute: typeof rootRoute
+    }
+    '/_auth/otp': {
+      id: '/_auth/otp'
+      path: '/otp'
+      fullPath: '/otp'
+      preLoaderRoute: typeof AuthOtpImport
+      parentRoute: typeof AuthImport
     }
     '/_auth/sign-in': {
       id: '/_auth/sign-in'
@@ -270,10 +284,12 @@ declare module '@tanstack/react-router' {
 // Create and export the route tree
 
 interface AuthRouteChildren {
+  AuthOtpRoute: typeof AuthOtpRoute
   AuthSignInRoute: typeof AuthSignInRoute
 }
 
 const AuthRouteChildren: AuthRouteChildren = {
+  AuthOtpRoute: AuthOtpRoute,
   AuthSignInRoute: AuthSignInRoute,
 }
 
@@ -324,6 +340,7 @@ const AuthenticatedRouteWithChildren = AuthenticatedRoute._addFileChildren(
 
 export interface FileRoutesByFullPath {
   '': typeof AuthenticatedRouteWithChildren
+  '/otp': typeof AuthOtpRoute
   '/sign-in': typeof AuthSignInRoute
   '/': typeof AuthenticatedIndexRoute
   '/about': typeof AboutIndexRoute
@@ -343,6 +360,7 @@ export interface FileRoutesByFullPath {
 
 export interface FileRoutesByTo {
   '': typeof AuthRouteWithChildren
+  '/otp': typeof AuthOtpRoute
   '/sign-in': typeof AuthSignInRoute
   '/': typeof AuthenticatedIndexRoute
   '/about': typeof AboutIndexRoute
@@ -364,6 +382,7 @@ export interface FileRoutesById {
   __root__: typeof rootRoute
   '/_auth': typeof AuthRouteWithChildren
   '/_authenticated': typeof AuthenticatedRouteWithChildren
+  '/_auth/otp': typeof AuthOtpRoute
   '/_auth/sign-in': typeof AuthSignInRoute
   '/_authenticated/': typeof AuthenticatedIndexRoute
   '/about/': typeof AboutIndexRoute
@@ -385,6 +404,7 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | ''
+    | '/otp'
     | '/sign-in'
     | '/'
     | '/about'
@@ -403,6 +423,7 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | ''
+    | '/otp'
     | '/sign-in'
     | '/'
     | '/about'
@@ -422,6 +443,7 @@ export interface FileRouteTypes {
     | '__root__'
     | '/_auth'
     | '/_authenticated'
+    | '/_auth/otp'
     | '/_auth/sign-in'
     | '/_authenticated/'
     | '/about/'
@@ -470,6 +492,7 @@ export const routeTree = rootRoute
     "/_auth": {
       "filePath": "_auth.tsx",
       "children": [
+        "/_auth/otp",
         "/_auth/sign-in"
       ]
     },
@@ -490,6 +513,10 @@ export const routeTree = rootRoute
         "/_authenticated/setting/",
         "/_authenticated/store-management/"
       ]
+    },
+    "/_auth/otp": {
+      "filePath": "_auth/otp.tsx",
+      "parent": "/_auth"
     },
     "/_auth/sign-in": {
       "filePath": "_auth/sign-in.tsx",

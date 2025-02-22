@@ -1,6 +1,6 @@
 import type { Preview } from "@storybook/react";
 import '../src/index.css';
-import withTanstackRouter from './withTanstackRouter';
+import withTanstackRouter from './decorator';
 import { initialize, mswLoader } from 'msw-storybook-addon'
 
 initialize()

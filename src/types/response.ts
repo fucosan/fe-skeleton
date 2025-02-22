@@ -1,12 +1,14 @@
-type User = {
+export type User = {
   name: string
   email: string
   role: string
 }
 
+export type Status = 'UNAUTHENTICATED' | 'OTP_REQUIRED' | 'AUTHENTICATED';
+
 export type ResSignIn = {
-  accessToken: string
-  user: User
+  user: null
+  status: Status
 }
 
 export type ResSignOut = {
@@ -19,4 +21,11 @@ export type ResRefresh = {
 
 export type ResAuth = {
   user: User
+  status: Status;
+}
+
+export type ResOtp = {
+  user: User
+  status: Status
+  accessToken: string
 }
