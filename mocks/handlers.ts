@@ -1,6 +1,8 @@
 import { delay, http, HttpResponse } from 'msw';
+import auth from './auth';
 
-const apiURL = import.meta.env.VITE_API_URL;
+const apiURL = import.meta.env.VITE_APP_API_URL;
+
 export const handlers = [
   http.get(apiURL + '/hello-world', async () => {
     await delay(3000);
@@ -11,4 +13,6 @@ export const handlers = [
       message: `${Math.random()}`,
     })
   }),
-]
+  ...auth,
+
+];

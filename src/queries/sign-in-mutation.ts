@@ -10,13 +10,17 @@ export function useSignInMutation() {
 
   return useMutation({
     mutationKey: ['sign-in'],
-    mutationFn: async ({ username, password }: SignInFormSchema) => {
+    mutationFn: async ({ email, password }: SignInFormSchema) => {
+      const formData = new FormData()
+      formData.append('email', email)
+      formData.append('password', password)
+
       return ky
         .post('sign-in', {
           json: {
-            username,
-            password,
-          },
+            email,
+            password
+          }
         })
         .json<ResSignIn>()
     },

@@ -1,27 +1,27 @@
 import { Formik, Form, Field } from "formik";
 import { toFormikValidationSchema } from "zod-formik-adapter";
-import { z } from "zod";
 import { Input } from "@/components/ui/input/input";
 import { Button } from "@/components/ui/button/button";
 import { Label } from "@/components/ui/label/label";
 import { PasswordField } from "@/components/input-field/password";
 import { ForgotPassword } from "./forgot-password";
-
-// Zod Schema
-const LoginSchema = z.object({
-  email: z.string().email("Invalid email"),
-  password: z.string().min(6, "Password must be at least 6 characters"),
-});
+import { SignInFormSchema } from "@/schema/sign-in";
+import { useSignInMutation } from "@/queries/sign-in-mutation";
 
 export function SignIn() {
+
+  const signInMutation = useSignInMutation();
+
   return (
     <div className="bg-background flex flex-col w-[474px] mih-h-[475px] p-[42px] flex flex-col gap-[36px]">
       <span className='text-[22px] font-bold'>Login</span>
       <hr />
       <Formik
         initialValues={{ email: "", password: "" }}
-        validationSchema={toFormikValidationSchema(LoginSchema)}
-        onSubmit={(values) => console.log("Login:", values)}
+        validationSchema={toFormikValidationSchema(SignInFormSchema)}
+        onSubmit={async (values) => {
+          await signInMutation.mutateAsync(values)
+        }}
       >
         {({ errors, touched, handleChange, handleBlur, values }) => (
           <Form className="flex flex-col gap-[36px] w-full mx-auto text-xs">
