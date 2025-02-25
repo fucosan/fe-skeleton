@@ -1,21 +1,19 @@
 import { Meta, StoryObj } from '@storybook/react';
-import { OtpVerification } from './otp-verification';
+import { Form } from './form';
 
 const meta = {
-  title: 'Components/OTP Verification',
-  component: OtpVerification,
+  title: 'Components/Form',
+  component: Form,
   parameters: {
     layout: 'centered',
   },
   tags: ['autodocs'],
   argTypes: {},
-} satisfies Meta<typeof OtpVerification>;
+} satisfies Meta<typeof Form>;
 
 export default meta;
 
 type Story = StoryObj<typeof meta>;
 export const Default: Story = {
-  args: {
-    email: 'admin@mail.com',
-  },
+  args: {},
 };

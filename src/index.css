@@ -19,6 +19,8 @@
   --light-gray: #D9D9D9;
   --very-light-gray: #F3F3F3;
   --near-white: #F9F9F9;
+
+  --error: #EE5555;
 }
 
 :root {

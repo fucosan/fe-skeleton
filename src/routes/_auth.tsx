@@ -11,12 +11,6 @@ export const Route = createFileRoute('/_auth')({
         to: search.redirect || '/',
       })
     }
-
-    if (context.auth.status === 'OTP_REQUIRED') {
-      redirect({
-        to: '/otp'
-      });
-    }
   },
   component: AuthLayout,
 })

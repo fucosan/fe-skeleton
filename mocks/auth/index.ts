@@ -1,13 +1,25 @@
 import { admin } from './data';
-import { HttpResponse } from 'msw';
+import { delay, HttpResponse } from 'msw';
 import { api } from '../utils';
 import { ACCESS_TOKEN } from '@/lib/constants';
 import { ResAuth, ResOtp, ResSignIn } from '@/types/response';
 
 export default [
-  api.post('/sign-in', () => {
+  api.post('/sign-in', async ({ request }) => {
+    const data = await request.formData();
+    const email = data.get("email");
+    const password = data.get("password");
+    await delay(3000);
+
+    if (email != admin.email || password != "1234") {
+      return HttpResponse.json<ResSignIn>({
+        user: null,
+        status: 'UNAUTHENTICATED',
+      }, { status: 401 });
+    }
+
     return HttpResponse.json<ResSignIn>({
-      user: null,
+      user: admin,
       status: 'OTP_REQUIRED',
     })
   }),
@@ -23,7 +35,19 @@ export default [
       status: 'AUTHENTICATED',
     })
   }),
-  api.post('/otp', () => {
+
+  api.post('/otp', async ({ request }) => {
+    const data = await request.formData();
+    const otp = data.get("otp");
+
+    if (otp !== '1234') {
+      return HttpResponse.json<ResOtp>({
+        user: null,
+        status: 'UNAUTHENTICATED',
+        accessToken: ''
+      });
+    }
+
     return HttpResponse.json<ResOtp>({
       user: admin,
       status: 'AUTHENTICATED',

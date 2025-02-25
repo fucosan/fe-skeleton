@@ -3,12 +3,14 @@ import Breadcrumb from './breadcrumb';
 import { Label } from '../ui/label/label';
 import { Button } from '../ui/button/button';
 import { Input } from '../ui/input/input';
+import { WasteNotIcon } from '@/assets/icons';
 
 type ForgotPasswordProps = object;
 
 export const ForgotPassword: React.FC<ForgotPasswordProps> = () => {
   return (
     <div className="bg-background flex flex-col w-[474px] h-[775px] p-[42px] gap-[36px]">
+      <WasteNotIcon height={32} width={143.24} />
       <Breadcrumb />
       <hr />
       <span className="font-normal text-sm text-left">

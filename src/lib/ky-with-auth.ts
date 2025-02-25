@@ -17,7 +17,10 @@ const kyWithAuth = ky.create({
     ],
     beforeRetry: [
       async ({ request, error, options }) => {
-        if (error instanceof HTTPError && error.response.status === 401) {
+        if (
+          error instanceof HTTPError
+          && error.response.status === 401
+        ) {
           const data = await ky
             .get('refresh', { ...options, retry: 0 })
             .json<ResRefresh>()

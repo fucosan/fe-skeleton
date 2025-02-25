@@ -3,12 +3,14 @@ import Breadcrumb from './breadcrumb';
 import { Label } from '../ui/label/label';
 import { Button } from '../ui/button/button';
 import { PasswordField } from '../input-field/password';
+import { WasteNotIcon } from '@/assets/icons';
 
 type ResetPasswordProps = object;
 
 export const ResetPassword: React.FC<ResetPasswordProps> = () => {
   return (
     <div className="bg-background flex flex-col w-[474px] h-[775px] p-[42px] gap-[36px]">
+      <WasteNotIcon height={32} width={143.24} />
       <Breadcrumb />
       <hr />
       <div className="flex flex-col gap-[6px]">

@@ -7,7 +7,7 @@ export type User = {
 export type Status = 'UNAUTHENTICATED' | 'OTP_REQUIRED' | 'AUTHENTICATED';
 
 export type ResSignIn = {
-  user: null
+  user: User | null
   status: Status
 }
 
@@ -25,7 +25,7 @@ export type ResAuth = {
 }
 
 export type ResOtp = {
-  user: User
+  user: User | null;
   status: Status
   accessToken: string
 }

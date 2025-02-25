@@ -41,6 +41,7 @@ export default tseslint.config(
       ...react.configs['jsx-runtime'].rules,
       // "semi": ["error", "always"],
       'react-compiler/react-compiler': 'error',
+      'no-console': ['warn', { allow: ['warn'] }],
     },
     settings: {
       react: {

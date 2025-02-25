@@ -2,7 +2,6 @@ import { Meta, StoryObj } from '@storybook/react';
 import { Sidebar } from './sidebar';
 import { links } from './constants';
 
-console.log(links.map(link => link.to));
 const meta = {
   title: 'Components/sidebar',
   component: Sidebar,

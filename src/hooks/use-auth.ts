@@ -54,7 +54,7 @@ function useAuth(): AuthData {
       return { ...utils, user: null, status: 'PENDING' }
 
     case authQuery.data?.status === 'OTP_REQUIRED':
-      return { ...utils, user: null, status: 'OTP_REQUIRED' }
+      return { ...utils, status: 'OTP_REQUIRED' }
 
     case !authQuery.data:
       return { ...utils, user: null, status: 'UNAUTHENTICATED', }
