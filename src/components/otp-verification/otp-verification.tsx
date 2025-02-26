@@ -13,12 +13,13 @@ import {
 } from "@/components/ui/form/form";
 import { InputOTP, InputOTPGroup, InputOTPSlot } from "@/components/ui/input-opt/input-otp";
 import { REGEXP_ONLY_DIGITS } from "input-otp"
+import { useOTPMutation } from "@/queries/otp-mutation";
 
 export interface OtpVerificationProps {
   email: string;
 }
 export function OtpVerification(props: OtpVerificationProps) {
-
+  const otpMutation = useOTPMutation();
 
   const form = useForm<OtpForm>({
     resolver: zodResolver(otpSchema),
@@ -27,7 +28,7 @@ export function OtpVerification(props: OtpVerificationProps) {
     },
   });
 
-  const onSubmit: SubmitHandler<OtpForm> = (data) => console.log(data);
+  const onSubmit: SubmitHandler<OtpForm> = async (data) => await otpMutation.mutateAsync(data);
 
   return (
     <div className="bg-background flex flex-col w-[474px] p-[42px] gap-[36px]">

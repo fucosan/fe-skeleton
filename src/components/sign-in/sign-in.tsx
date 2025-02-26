@@ -9,17 +9,20 @@ import { WasteNotIcon } from "@/assets/icons";
 import { useForm, SubmitHandler } from "react-hook-form"
 import { zodResolver } from '@hookform/resolvers/zod';
 import { cn } from "@/lib/utils";
+import { Form, FormField } from "../ui/form/form";
 
 export function SignIn() {
   const signInMutation = useSignInMutation();
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors, isSubmitting },
-  } = useForm<SignInForm>({
+  const form = useForm<SignInForm>({
     resolver: zodResolver(signInFormSchema),
+    defaultValues: {
+      email: '',
+      password: ''
+    }
   });
+
+  const { formState: { errors, isSubmitting, isLoading } } = form;
 
   const onSubmit: SubmitHandler<SignInForm> = async (data) => await signInMutation.mutateAsync(data);
 
@@ -28,6 +31,7 @@ export function SignIn() {
       signInMutation.reset()
     }
   }
+  const loading = isSubmitting || signInMutation.isPending || isLoading;
 
   return (
     <div className="bg-background flex flex-col w-[474px] mih-h-[475px] p-[42px] flex flex-col gap-[36px]">
@@ -37,41 +41,59 @@ export function SignIn() {
       <div className="text-(--error) text-xs absolute top-50">
         {signInMutation.isError && 'Wrong email or password'}
       </div>
-      <form
-        className="flex flex-col gap-[36px] w-full mx-auto text-xs"
-        onSubmit={handleSubmit(onSubmit)}
-        onChange={handleClearError}
+      <Form
+        {...form}
       >
-        <div>
-          <Label htmlFor="email" className="font-bold text-xs">Email</Label>
-          <Input
-            errors={!!errors.email}
-            className={cn("mt-[6px] font-sm")}
-            placeholder="Enter email address"
-            autoComplete="off"
-            {...register("email")}
-          />
-          {errors.email && (
-            <div className="text-(--error) text-xs mt-0.5">{errors.email.message}</div>
-          )}
-        </div>
-
-        <div>
-          <Label htmlFor="password" className="font-bold text-xs">Password</Label>
-          <PasswordField
-            placeholder="Enter password"
-            className="mt-[6px] font-sm"
-            {...register("password")}
-          />
-        </div>
-        <Button
-          className="w-full"
-          disabled={isSubmitting || signInMutation.isError}
-          type="submit"
+        <form
+          className="flex flex-col gap-[36px] w-full mx-auto text-xs"
+          onSubmit={form.handleSubmit(onSubmit)}
+          onChange={handleClearError}
         >
-          {isSubmitting ? 'moving on....' : 'move on'}
-        </Button>
-      </form>
+          <FormField
+            control={form.control}
+            name="email"
+            render={({ field }) => (
+              <div>
+                <Label htmlFor="email" className="font-bold text-xs">Email</Label>
+                <Input
+                  errors={!!errors.email}
+                  className={cn("mt-[6px] font-sm")}
+                  placeholder="Enter email address"
+                  autoComplete="off"
+                  disabled={loading}
+                  {...field}
+                />
+                {errors.email && (
+                  <div className="text-(--error) text-xs mt-0.5">{errors.email.message}</div>
+                )}
+              </div>
+            )}
+          />
+
+          <FormField
+            control={form.control}
+            name="password"
+            render={({ field }) => (
+              <div>
+                <Label htmlFor="password" className="font-bold text-xs">Password</Label>
+                <PasswordField
+                  placeholder="Enter password"
+                  className="mt-[6px] font-sm"
+                  disabled={loading}
+                  {...field}
+                />
+              </div>
+            )}
+          />
+          <Button
+            className="w-full"
+            disabled={loading}
+            type="submit"
+          >
+            {loading ? 'moving on....' : 'move on'}
+          </Button>
+        </form>
+      </Form>
       <ForgotPassword />
     </div>
   );

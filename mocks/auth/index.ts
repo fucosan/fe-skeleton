@@ -37,9 +37,9 @@ export default [
   }),
 
   api.post('/otp', async ({ request }) => {
+    await delay(3000);
     const data = await request.formData();
-    const otp = data.get("otp");
-
+    const otp = data.get("pin");
     if (otp !== '1234') {
       return HttpResponse.json<ResOtp>({
         user: null,
@@ -47,7 +47,6 @@ export default [
         accessToken: ''
       });
     }
-
     return HttpResponse.json<ResOtp>({
       user: admin,
       status: 'AUTHENTICATED',
@@ -55,9 +54,10 @@ export default [
     })
   }),
   api.get('/refresh', () => {
+    const session = sessionStorage.getItem(ACCESS_TOKEN);
     return HttpResponse.json({
       accessToken: 'newAccessToken'
-    }, { status: 403 })
+    }, { status: session ? 200 : 403 })
   }),
   api.post('/sign-out', () => {
     return HttpResponse.json({

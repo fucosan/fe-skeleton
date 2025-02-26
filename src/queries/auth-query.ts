@@ -7,7 +7,6 @@ export function authQueryOptions() {
   return queryOptions({
     queryKey: ['auth'],
     queryFn: () => ky.get('auth').json<ResAuth>(),
-    refetchOnMount: false,
   })
 }
 

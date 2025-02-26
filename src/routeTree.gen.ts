@@ -14,7 +14,7 @@ import { Route as rootRoute } from './routes/__root'
 import { Route as AuthenticatedImport } from './routes/_authenticated'
 import { Route as AuthImport } from './routes/_auth'
 import { Route as AboutIndexImport } from './routes/about/index'
-import { Route as AuthenticatedIndexImport } from './routes/_authenticated.index'
+import { Route as AuthenticatedIndexImport } from './routes/_authenticated/index'
 import { Route as AuthSignInImport } from './routes/_auth/sign-in'
 import { Route as AuthOtpImport } from './routes/_auth/otp'
 import { Route as AuthenticatedStoreManagementIndexImport } from './routes/_authenticated/store-management/index'
@@ -523,7 +523,7 @@ export const routeTree = rootRoute
       "parent": "/_auth"
     },
     "/_authenticated/": {
-      "filePath": "_authenticated.index.tsx",
+      "filePath": "_authenticated/index.tsx",
       "parent": "/_authenticated"
     },
     "/about/": {

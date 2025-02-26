@@ -6,9 +6,13 @@ import type { SignInForm } from '@/types/sign-in';
 import type { ResSignIn } from '@/types/response'
 import { router } from '@/lib/router';
 import { toFormData } from '@/lib/utils';
+import { getRouteApi } from '@tanstack/react-router';
+
+const routeApi = getRouteApi('/_auth/sign-in');
 
 export function useSignInMutation() {
   const queryClient = useQueryClient()
+  const search = routeApi.useSearch();
 
   return useMutation({
     mutationKey: ['sign-in'],
@@ -20,8 +24,9 @@ export function useSignInMutation() {
     onSuccess: (data) => {
       queryClient.setQueryData(['auth'], {
         status: data.status,
+        user: null,
       });
-      router.navigate({ to: '/otp', });
+      router.navigate({ to: '/otp', search });
       if (!data.user?.email) throw new Error('Email is required')
       sessionStorage.setItem(EMAIL, data.user.email)
     },

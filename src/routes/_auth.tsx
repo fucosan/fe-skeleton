@@ -8,7 +8,7 @@ export const Route = createFileRoute('/_auth')({
   beforeLoad: ({ context, search }) => {
     if (context.auth.status === 'AUTHENTICATED') {
       throw redirect({
-        to: search.redirect || '/',
+        to: search.redirect || '/members'
       })
     }
   },
